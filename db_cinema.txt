@@ -1,0 +1,230 @@
+
+Setting environment for using XAMPP for Windows.
+MyBook Hype AMD@MYBOOKHYPEAMD c:\xampp3
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db_coba            |
+| db_pembelian       |
+| db_perusahaan      |
+| db_quiz            |
+| db_rumah_sakit     |
+| db_sekolah         |
+| db_sekolah2        |
+| db_tka2026         |
+| db_universitas     |
+| film               |
+| information_schema |
+| latihan            |
+| lsp_p1_db          |
+| lsp_p1_db_backup   |
+| lsp_p2_db          |
+| lspdb              |
+| mysql              |
+| performance_schema |
+| perpustakaan       |
+| phpmyadmin         |
+| produk             |
+| test               |
+| toko_elektrik      |
++--------------------+
+23 rows in set (0.091 sec)
+
+MariaDB [(none)]> create database db_cinema;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use db_cinema;
+Database changed
+MariaDB [db_cinema]> create table sutradara(
+    -> id_sutradara INT PRIMARY KEY AUTO_INCREMENT,
+    -> nama_sutradara VARCHAR(100),
+    -> negara_asal VARCHAR(50),
+    -> tahun_lahir INT);
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [db_cinema]> create table genre(
+    -> id_genre INT PRIMARY KEY AUTO_INCREMENT,
+    -> nama_genre VARCHAR(50),
+    -> keterangan VARCHAR(100));
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [db_cinema]> create table film(
+    -> id_film INT PRIMARY KEY AUTO_INCREMENT,
+    -> judul_film VARCHAR(100),
+    -> tahun_rilis INT,
+    -> durasi_menit INT,
+    -> id_sutradara INT,
+    -> id_genre INT,
+    -> FOREIGN KEY (id_sutradara) REFERENCES sutradara(id_sutradara),
+    -> FOREIGN KEY (id_genre) REFERENCES genre(id_genre));
+Query OK, 0 rows affected (0.068 sec)
+
+MariaDB [db_cinema]> INSERT INTO sutradara (nama_sutradara, negara_asal, tahun_lahir) VALUES
+    -> ('Christopher Nolan', 'Inggris', 1970),
+    -> ('Joko Anwar', 'Indonesia', 1976),
+    -> ('Bong Joon-ho', 'Korea Selatan', 1969),
+    -> ('Steven Spielberg', 'Amerika Serikat', 1946),
+    -> ('Greta Gerwig', 'Amerika Serikat', 1983),
+    -> ('Denis Villeneuve', 'Kanada', 1967),
+    -> ('Martin Scorsese', 'Amerika Serikat', 1942);
+Query OK, 7 rows affected (0.079 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [db_cinema]> INSERT INTO genre (nama_genre, keterangan) VALUES
+    -> ('Action', 'Adegan aksi dan ketegangan'),
+    -> ('Drama', 'Cerita konflik kehidupan'),
+    -> ('Thriller', 'Misteri dan ketegangan psikologis'),
+    -> ('Sci-Fi', 'Fiksi ilmiah dan teknologi'),
+    -> ('Horror', 'Cerita menyeramkan'),
+    -> ('Comedy', 'Unsur humor'),
+    -> ('Adventure', 'Petualangan dan eksplorasi');
+Query OK, 7 rows affected (0.008 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [db_cinema]> INSERT INTO film (judul_film, tahun_rilis, durasi_menit, id_sutradara, id_genre) VALUES
+    -> ('Inception', 2010, 148, 1, 4),
+    -> ('Pengabdi Setan', 2017, 107, 2, 5),
+    -> ('Parasite', 2019, 132, 3, 2),
+    -> ('Jurassic Park', 1993, 127, 4, 7),
+    -> ('Barbie', 2023, 114, 5, 6),
+    -> ('Dune', 2021, 155, 6, 4),
+    -> ('The Irishman', 2019, 209, 7, 2);
+Query OK, 7 rows affected (0.007 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [db_cinema]> select * from sutradara;
++--------------+-------------------+-----------------+-------------+
+| id_sutradara | nama_sutradara    | negara_asal     | tahun_lahir |
++--------------+-------------------+-----------------+-------------+
+|            1 | Christopher Nolan | Inggris         |        1970 |
+|            2 | Joko Anwar        | Indonesia       |        1976 |
+|            3 | Bong Joon-ho      | Korea Selatan   |        1969 |
+|            4 | Steven Spielberg  | Amerika Serikat |        1946 |
+|            5 | Greta Gerwig      | Amerika Serikat |        1983 |
+|            6 | Denis Villeneuve  | Kanada          |        1967 |
+|            7 | Martin Scorsese   | Amerika Serikat |        1942 |
++--------------+-------------------+-----------------+-------------+
+7 rows in set (0.001 sec)
+
+MariaDB [db_cinema]> select * from genre;
++----------+------------+-----------------------------------+
+| id_genre | nama_genre | keterangan                        |
++----------+------------+-----------------------------------+
+|        1 | Action     | Adegan aksi dan ketegangan        |
+|        2 | Drama      | Cerita konflik kehidupan          |
+|        3 | Thriller   | Misteri dan ketegangan psikologis |
+|        4 | Sci-Fi     | Fiksi ilmiah dan teknologi        |
+|        5 | Horror     | Cerita menyeramkan                |
+|        6 | Comedy     | Unsur humor                       |
+|        7 | Adventure  | Petualangan dan eksplorasi        |
++----------+------------+-----------------------------------+
+7 rows in set (0.000 sec)
+
+MariaDB [db_cinema]> select * from film;
++---------+----------------+-------------+--------------+--------------+----------+
+| id_film | judul_film     | tahun_rilis | durasi_menit | id_sutradara | id_genre |
++---------+----------------+-------------+--------------+--------------+----------+
+|       1 | Inception      |        2010 |          148 |            1 |        4 |
+|       2 | Pengabdi Setan |        2017 |          107 |            2 |        5 |
+|       3 | Parasite       |        2019 |          132 |            3 |        2 |
+|       4 | Jurassic Park  |        1993 |          127 |            4 |        7 |
+|       5 | Barbie         |        2023 |          114 |            5 |        6 |
+|       6 | Dune           |        2021 |          155 |            6 |        4 |
+|       7 | The Irishman   |        2019 |          209 |            7 |        2 |
++---------+----------------+-------------+--------------+--------------+----------+
+7 rows in set (0.002 sec)
+
+MariaDB [db_cinema]> select
+    -> film.judul.film,
+    -> sutradara.nama_sutradara,
+    -> genre.nama_genre,
+    -> film.tahun_rilis
+    -> from film
+    -> inner join sutradara
+    -> on film.id_sutradara = sutradara.id_sutradara
+    -> inner join genre
+    -> on film.id_genre = genre.id_genre;
+ERROR 1054 (42S22): Unknown column 'film.judul.film' in 'field list'
+MariaDB [db_cinema]> select
+    -> film.judul_film,
+    -> sutradara.nama_sutradara,
+    -> genre.nama_genre,
+    -> film.tahun_rilis
+    -> from film
+    -> inner join sutradara
+    -> on film.id_sutradara = sutradara.id_sutradara
+    -> inner join genre
+    -> on film.id_genre = genre.id_genre;
++----------------+-------------------+------------+-------------+
+| judul_film     | nama_sutradara    | nama_genre | tahun_rilis |
++----------------+-------------------+------------+-------------+
+| Inception      | Christopher Nolan | Sci-Fi     |        2010 |
+| Pengabdi Setan | Joko Anwar        | Horror     |        2017 |
+| Parasite       | Bong Joon-ho      | Drama      |        2019 |
+| Jurassic Park  | Steven Spielberg  | Adventure  |        1993 |
+| Barbie         | Greta Gerwig      | Comedy     |        2023 |
+| Dune           | Denis Villeneuve  | Sci-Fi     |        2021 |
+| The Irishman   | Martin Scorsese   | Drama      |        2019 |
++----------------+-------------------+------------+-------------+
+7 rows in set (0.001 sec)
+
+MariaDB [db_cinema]> insert into sutradara(nama_sutradara, negara_asal, tahun_lahir)
+    -> values ('Farhan','indonesia',1975);
+Query OK, 1 row affected (0.036 sec)
+
+MariaDB [db_cinema]> select
+    -> sutradara.nama_sutradara,
+    -> film.judul_film
+    -> from sutradara
+    -> left join film
+    -> on sutradara.id_sutradara = film.id_sutradara;
++-------------------+----------------+
+| nama_sutradara    | judul_film     |
++-------------------+----------------+
+| Christopher Nolan | Inception      |
+| Joko Anwar        | Pengabdi Setan |
+| Bong Joon-ho      | Parasite       |
+| Steven Spielberg  | Jurassic Park  |
+| Greta Gerwig      | Barbie         |
+| Denis Villeneuve  | Dune           |
+| Martin Scorsese   | The Irishman   |
+| Farhan            | NULL           |
++-------------------+----------------+
+8 rows in set (0.001 sec)
+
+MariaDB [db_cinema]> insert into film(judul_film, tahun_rilis, durasi_menit,id_sutradara,id_genre)
+    -> values ('rpl',2026,100,1,NULL);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [db_cinema]> select
+    -> genre.nama_genre,
+    -> film.judul_film
+    -> from genre
+    -> right join film
+    -> on genre.id_genre = film.id_genre;
++------------+----------------+
+| nama_genre | judul_film     |
++------------+----------------+
+| Sci-Fi     | Inception      |
+| Horror     | Pengabdi Setan |
+| Drama      | Parasite       |
+| Adventure  | Jurassic Park  |
+| Comedy     | Barbie         |
+| Sci-Fi     | Dune           |
+| Drama      | The Irishman   |
+| NULL       | rpl            |
++------------+----------------+
+8 rows in set (0.001 sec)
+
+MariaDB [db_cinema]>
