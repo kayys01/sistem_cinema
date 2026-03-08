@@ -1,5 +1,12 @@
 # 🎬 DB_CINEMA
 
+## 👤 Author
+
+Nama: Farhan Kayys  
+Project: Database Cinema  
+Tools: XAMPP, MariaDB
+
+
 ### Implementasi Database Relasional menggunakan MariaDB
 
 Project ini merupakan contoh implementasi **database relasional sederhana** yang bertema sistem informasi perfilman. Database dibuat menggunakan **MariaDB (melalui XAMPP)** dan bertujuan untuk memahami konsep dasar pengelolaan data dalam sistem basis data.
